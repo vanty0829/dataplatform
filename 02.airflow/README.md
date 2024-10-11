@@ -52,7 +52,7 @@ helm upgrade --install airflow apache-airflow/airflow -f ./values.yaml
 
 **5. Check UI**:
 - Forward Port of airflow-webserver to testing ui
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_forward.png></a></p>
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_fw.png></a></p>
 
 - Login with username: admin, password: admin
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_login.png></a></p>
