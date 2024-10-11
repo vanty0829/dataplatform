@@ -1,4 +1,5 @@
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow.png></a></p>
+<p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_k8s.png></a></p>
 
 **1. Pull helm nginx**:
 </br>
