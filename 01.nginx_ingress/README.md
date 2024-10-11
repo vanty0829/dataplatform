@@ -53,7 +53,7 @@ kubectl create secret tls tls --cert=cf.crt --key=cf.key #you need to create cf.
 ```bash
 kubectl apply -f ./ingress/ingress.yaml
 ```
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/99.ingress.png></a></p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ingress.png></a></p>
 
 **9. Others**:
 </br>
