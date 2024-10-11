@@ -1,67 +1,43 @@
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/00nfs.png></a></p>
 
-**1. Pull helm nginx**:
+NFS (Network File System) is a popular storage solution in Kubernetes that allows multiple pods to mount the same storage volume with ReadWriteMany (RWX) access mode. Here are some key points about NFS in Kubernetes.
+
+**1. Pull helm nfs**:
 </br>
 ```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add stable https://charts.helm.sh/stable
 helm repo update
 ```
 
-**2. Install nginx**:
+**2. Install nfs**:
 </br>
 ```bash
-helm install nginx-ingress ingress-nginx/ingress-nginx
+helm install nfs stable/nfs-server-provisioner
 ```
-<p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/lens_nginx_pod.png></a></p>
 
-<p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/nginx_svc.png></a></p>
+<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/nfs_storage_class.png></a></p>
 
-**3. Pull helm cert-manager**:
+**3. Deploy PVC (Persistent Volume Claim) with nfs class**:
 </br>
+nfspvc.yaml
 ```bash
-helm repo add jetstack https://charts.jetstack.io
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  labels: {}
+  annotations: {}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: nfs
 ```
 
-
-**4. Install cert-manger**:
-</br>
 ```bash
-helm upgrade --install cert-manager jetstack/cert-manager --version v1.10.1 --set installCRDs=true
-```
-<p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_pod.png></a></p>
-
-<p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_service.png></a></p>
-
-**5. Issue cert for tls**:
-</br>
-```bash
-kubectl apply -f ./cert-manager/production_issuer.yaml
+kubectl apply -f ./nfspvc.yaml
 ```
 
-**6. Create secret tls**:
-</br>
-```bash
-kubectl create secret tls tls --cert=cf.crt --key=cf.key #you need to create cf.crt and cf.key first
-```
-
-**6. Deploy ingress**:
-</br>
-```bash
-kubectl apply -f ./ingress/ingress.yaml
-```
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ingress.png></a></p>
-
-**9. Others**:
-</br>
-```bash
-#create tls key 
-openssl genpkey -algorithm RSA -out tls.key -pkeyopt rsa_keygen_bits:2048
-openssl req -new -x509 -key tls.key -out tls.crt -days 365
-```
-
-**Ref**:
-- https://github.com/kubernetes/ingress-nginx
+<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/nfs_pvc.png></a></p>
