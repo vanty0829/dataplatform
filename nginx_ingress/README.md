@@ -1,9 +1,8 @@
-1. pull helm nginx
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-
-2. install nginx
-helm install nginx-ingress ingress-nginx/ingress-nginx
+**1. pull helm nginx**: 
+  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+  helm repo update
+**2. install nginx**:
+  helm install nginx-ingress ingress-nginx/ingress-nginx
 
 3. pull helm cert-manager
 helm repo add jetstack https://charts.jetstack.io
