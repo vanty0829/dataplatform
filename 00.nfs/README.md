@@ -1,4 +1,4 @@
-<p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/images/1.nginx%2Bingress.png></a></p>
+<p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/1.nginx%2Bingress.png></a></p>
 
 **1. Pull helm nginx**:
 </br>
@@ -13,10 +13,10 @@ helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx
 ```
 <p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/images/lens_nginx_pod.png></a></p>
+<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/lens_nginx_pod.png></a></p>
 
 <p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/nginx_svc.png></a></p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/nginx_svc.png></a></p>
 
 **3. Pull helm cert-manager**:
 </br>
@@ -31,10 +31,10 @@ helm repo add jetstack https://charts.jetstack.io
 helm upgrade --install cert-manager jetstack/cert-manager --version v1.10.1 --set installCRDs=true
 ```
 <p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/images/cert_manager_pod.png></a></p>
+<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_pod.png></a></p>
 
 <p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/cert_manager_service.png></a></p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_service.png></a></p>
 
 **5. Issue cert for tls**:
 </br>
@@ -53,7 +53,7 @@ kubectl create secret tls tls --cert=cf.crt --key=cf.key #you need to create cf.
 ```bash
 kubectl apply -f ./ingress/ingress.yaml
 ```
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/ingress.png></a></p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/99.ingress.png></a></p>
 
 **9. Others**:
 </br>
