@@ -1,4 +1,4 @@
-<p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/1.nginx%2Bingress.png></a></p>
+<p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow.png></a></p>
 
 **1. Pull helm nginx**:
 </br>
@@ -64,4 +64,4 @@ openssl req -new -x509 -key tls.key -out tls.crt -days 365
 ```
 
 **Ref**:
-- https://github.com/kubernetes/ingress-nginx
+- https://github.com/apache/airflow
