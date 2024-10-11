@@ -1,68 +1,64 @@
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow.png></a></p>
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_k8s.png></a></p>
 
-**1. Pull helm nginx**:
+**1. Pull helm airflow**:
 </br>
 ```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add apache-airflow https://airflow.apache.org
 helm repo update
 ```
 
-**2. Install nginx**:
+**2. Get values file**:
 </br>
 ```bash
-helm install nginx-ingress ingress-nginx/ingress-nginx
+helm show values apache-airflow/airflow > ./values.yaml
+```
+
+**3. Adjust values.yaml to mount dags folder**:
+</br>
+```bash
+dags:
+  # Where dags volume will be mounted. Works for both persistence and gitSync.
+  # If not specified, dags mount path will be set to $AIRFLOW_HOME/dags
+  mountPath: ~
+  persistence:
+    # Annotations for dags PVC
+    annotations: {}
+    # Enable persistent volume for storing dags
+    enabled: true
+    # Volume size for dags
+    size: 1Gi
+    # If using a custom storageClass, pass name here
+    storageClassName: nfs
+    # access mode of the persistent volume
+    accessMode: ReadWriteMany
+    ## the name of an existing PVC to use
+    existingClaim:
+    ## optional subpath for dag volume mount
+    subPath: ~
+```
+
+
+**4. Deploy airflow**:
+</br>
+```bash
+helm upgrade --install airflow apache-airflow/airflow -f ./values.yaml
 ```
 <p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/lens_nginx_pod.png></a></p>
+<p align="center"><img alt="airflow_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_pod.png></a></p>
 
 <p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/nginx_svc.png></a></p>
+<p align="center"><img alt="airflow_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_svc.png></a></p>
 
-**3. Pull helm cert-manager**:
-</br>
-```bash
-helm repo add jetstack https://charts.jetstack.io
-```
+**5. Check UI**:
+- Forward Port of airflow-webserver to testing ui
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_forward.png></a></p>
 
+- Login with username: admin, password: admin
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_login.png></a></p>
 
-**4. Install cert-manger**:
-</br>
-```bash
-helm upgrade --install cert-manager jetstack/cert-manager --version v1.10.1 --set installCRDs=true
-```
-<p>Pod</p>
-<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_pod.png></a></p>
-
-<p>Service</p>
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/cert_manager_service.png></a></p>
-
-**5. Issue cert for tls**:
-</br>
-```bash
-kubectl apply -f ./cert-manager/production_issuer.yaml
-```
-
-**6. Create secret tls**:
-</br>
-```bash
-kubectl create secret tls tls --cert=cf.crt --key=cf.key #you need to create cf.crt and cf.key first
-```
-
-**6. Deploy ingress**:
-</br>
-```bash
-kubectl apply -f ./ingress/ingress.yaml
-```
-<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/99.ingress.png></a></p>
-
-**9. Others**:
-</br>
-```bash
-#create tls key 
-openssl genpkey -algorithm RSA -out tls.key -pkeyopt rsa_keygen_bits:2048
-openssl req -new -x509 -key tls.key -out tls.crt -days 365
-```
+- Check the result
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/airflow_ui.png></a></p>
 
 **Ref**:
 - https://github.com/apache/airflow
