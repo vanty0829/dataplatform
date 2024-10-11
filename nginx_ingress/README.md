@@ -12,10 +12,12 @@ helm repo update
 ```bash
 helm install nginx-ingress ingress-nginx/ingress-nginx
 ```
-
+<p>Pod</p>
 <p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/images/lens_nginx_pod.png></a></p>
 
-  
+<p>Service</p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/nginx_svc.png></a></p>
+
 **3. Pull helm cert-manager**:
 </br>
 ```bash
