@@ -1,4 +1,4 @@
-![Nginx](https://github.com/vanty0829/dataplatform/blob/master/images/1.nginx%2Bingress.drawio)
+![Nginx](https://github.com/vanty0829/dataplatform/blob/master/images/1.nginx%2Bingress.png)
 
 **1. Pull helm nginx**:
 </br>
