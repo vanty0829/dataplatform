@@ -30,6 +30,11 @@ helm repo add jetstack https://charts.jetstack.io
 ```bash
 helm upgrade --install cert-manager jetstack/cert-manager --version v1.10.1 --set installCRDs=true
 ```
+<p>Pod</p>
+<p align="center"><img alt="nginx_pod" src=https://github.com/vanty0829/dataplatform/blob/master/images/cert_manager_pod.png></a></p>
+
+<p>Service</p>
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/cert_manager_service.png></a></p>
 
 **5. Issue cert for tls**:
 </br>
