@@ -1,7 +1,9 @@
-**1. pull helm nginx**: 
-  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+**1. Pull helm nginx**:
+</br> </br> 
+<p> helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx </p>
   helm repo update
-**2. install nginx**:
+**2. Install nginx**:
+</br> </br> 
   helm install nginx-ingress ingress-nginx/ingress-nginx
 
 3. pull helm cert-manager
