@@ -1,6 +1,6 @@
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/99.images/00nfs.png></a></p>
 
-NFS (Network File System) is a popular storage solution in Kubernetes that allows multiple pods to mount the same storage volume with ReadWriteMany (RWX) access mode. Here are some key points about NFS in Kubernetes.
+NFS (Network File System) is a popular storage solution in Kubernetes that allows multiple pods to mount the same storage volume with ReadWriteMany (RWX) access mode.
 
 **1. Pull helm nfs**:
 </br>
