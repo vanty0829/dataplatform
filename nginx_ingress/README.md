@@ -48,6 +48,12 @@ kubectl apply -f ./cert-manager/production_issuer.yaml
 kubectl create secret tls tls --cert=cf.crt --key=cf.key #you need to create cf.crt and cf.key first
 ```
 
+**6. Deploy ingress**:
+</br>
+```bash
+kubectl apply -f ./ingress/ingress.yaml
+```
+<p align="center"><img alt="nginx_svc" src=https://github.com/vanty0829/dataplatform/blob/master/images/ingress.png></a></p>
 
 **9. Others**:
 </br>
