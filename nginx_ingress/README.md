@@ -1,4 +1,5 @@
 <p align="center"><img alt="Nginx" src=https://github.com/vanty0829/dataplatform/blob/master/images/1.nginx%2Bingress.png></a></p>
+
 **1. Pull helm nginx**:
 </br>
 ```bash
