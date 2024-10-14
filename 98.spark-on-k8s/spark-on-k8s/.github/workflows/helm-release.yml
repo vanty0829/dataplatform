@@ -1,0 +1,31 @@
+name: helm-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_version:
+        description: 'The current latest version of spark-on-k8s python package'
+        required: true
+      chart_version:
+        description: 'The version of the chart to be released'
+        required: true
+
+jobs:
+  helm-build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Publish Helm chart
+        uses: stefanprodan/helm-gh-pages@89c6698c192e70ed0e495bee7d3d1ca5b477fe82
+        with:
+          token: ${{ secrets.HELM_RELEASE_TOKEN }}
+          charts_dir: .
+          repository: spark-on-k8s-chart
+          branch: gh-pages
+          app_version: ${{ github.event.inputs.app_version }}
+          chart_version: ${{ github.event.inputs.chart_version }}
