@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metastore-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metastore-db
+  template:
+    metadata:
+      labels:
+        app: metastore-db
+    spec:
+      containers:
+        - name: metastore-db
+          image: postgres:11
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "hive"
+            - name: POSTGRES_PASSWORD
+              value: "123456"
+            - name: POSTGRES_DB
+              value: "metastore"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metastore-db
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: metastore-db
