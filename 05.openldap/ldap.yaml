@@ -33,19 +33,19 @@ spec:
               value: "false"
             - name: LDAP_SEED_INTERNAL_LDIF_PATH
               value: "/ldifs"
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: openldap
-# spec:
-#   type: NodePort
-#   ports:
-#     - port: 389
-#       targetPort: 389
-#       name: ldap  # Change this if you want a specific node port
-#     - port: 636
-#       targetPort: 636
-#       name: ldaps
-#   selector:
-#     app: openldap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openldap
+spec:
+  type: NodePort
+  ports:
+    - port: 389
+      targetPort: 389
+      name: ldap  # Change this if you want a specific node port
+    - port: 636
+      targetPort: 636
+      name: ldaps
+  selector:
+    app: openldap
