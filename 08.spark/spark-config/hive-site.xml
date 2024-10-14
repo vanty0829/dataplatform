@@ -1,0 +1,41 @@
+<configuration>
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://hive-metastore:9083</value>
+        <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
+    </property>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>s3a://tyle</value>
+    </property>
+    <property>
+        <name>fs.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+    </property>
+    <property>
+        <name>fs.s3a.connection.ssl.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>fs.s3a.aws.credentials.provider</name>
+        <value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>23446e20bedd46254f9bfa36a6034bea</value>
+    </property>
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>c2b6557191beaea220c42894487e5b953ebe54728fe139c36b50022167418db9</value>
+    </property>
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>https://be3c9633b3747030f2a93e5c845ab269.r2.cloudflarestorage.com</value>
+    </property>
+    <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+    </property>
+
+</configuration>

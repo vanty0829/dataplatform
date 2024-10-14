@@ -1,0 +1,10 @@
+# requests
+# json5
+# boto3==1.33.1
+boto3
+# s3fs
+botocore
+oracledb
+sqlalchemy
+s3fs
+import-ipynb

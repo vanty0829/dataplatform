@@ -11,7 +11,7 @@
 - Build Solr image:
 
 ```bash
-#cd ./images/solr
+#cd ./images/ranger-solr
 
 docker buildx build -t bill/ranger-solr:0.0.1 -f Dockerfile.solr .
 docker push bill/ranger-solr:0.0.1

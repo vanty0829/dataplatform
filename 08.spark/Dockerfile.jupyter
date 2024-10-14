@@ -1,0 +1,40 @@
+FROM quay.io/jupyter/pyspark-notebook:spark-3.5.0
+
+USER root
+# ENV PYSPARK_SUBMIT_ARGS '--packages com.amazonaws:aws-java-sdk:1.12.262,org.apache.hadoop:hadoop-aws:3.3.4,net.java.dev.jets3t:jets3t:0.9.4 pyspark-shell'
+
+
+# install lib to connect postgresql
+# RUN sudo apt -y update \
+#     && sudo apt -y install postgresql postgresql-contrib \
+#     && sudo apt-get install -y libpq-dev
+
+
+# COPY requirements.txt ./
+# RUN pip install --upgrade pip \
+#     && pip install --no-cache-dir -r requirements.txt \
+#     && apt-get clean && rm requirements.txt
+    
+WORKDIR /
+
+ENV PATH="/usr/local/spark/sbin:/usr/local/spark/bin:${PATH}"
+ENV SPARK_HOME="/usr/local/spark"
+
+ENV PYSPARK_PYTHON=/usr/bin/python3.11
+ENV PYSPARK_DRIVER_PYTHON=/usr/bin/python3.11 
+
+COPY ./spark-config/spark-defaults.conf /usr/local/spark/conf/
+COPY ./spark-config/hive-site.xml /usr/local/spark/conf/
+
+# COPY ./jars/* /usr/local/spark/jars/
+
+CMD ["start-notebook.sh", "--NotebookApp.token=tylebic", "--NotebookApp.password=tylebic"]
+
+
+RUN mkdir /home/tyle \
+    && chmod -R 777 /home/tyle
+    
+WORKDIR /home/tyle
+# USER $NB_UID
+# USER $NB_USER
+# USER tyle
