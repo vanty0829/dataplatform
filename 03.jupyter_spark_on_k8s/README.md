@@ -7,10 +7,36 @@
 kubectl apply -f ./jupyter.yaml
 ```
 
+- Pod:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_pod.png></a></p>
+
+- Service:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_svc.png></a></p>
+
+**2. Use Jupyter**:
+
+- Forward port:
+
+</br>
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_fw.png></a></p>
+
+- Login
+</br>
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_login.png></a></p>
+
+- Start SparkSession
+</br>
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_ui.png></a></p>
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/sark_app.png></a></p>
+
 **4. Start SparkSession on k8s**:
 </br>
 
 ```bash
+import os
 from pyspark.sql import SparkSession
 
 spark = (

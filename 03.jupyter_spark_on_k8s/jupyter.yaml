@@ -17,7 +17,7 @@ spec:
          serviceAccountName: spark-driver
          containers:
             - name: jupiter-spark-container
-              image: tyle0829/jupyter:0.0.4 #change with your image
+              image: bill/jupyter:0.0.4 #change with your image
               imagePullPolicy: Always
               ports:
               - containerPort: 8888
