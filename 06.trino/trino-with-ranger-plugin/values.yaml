@@ -19,14 +19,15 @@ image:
   # -- Image registry, defaults to empty, which results in DockerHub usage
   registry: ""
   # -- Repository location of the Trino image, typically `organization/imagename`
-  repository: trinodb/trino
+  repository: tyle0829/trinoplus
   # -- Image tag, defaults to the Trino release version specified as `appVersion` from Chart.yaml
-  tag: ""
+  tag: "0.0.1"
   # -- Optional digest value of the image specified as `sha256:abcd...`. A specified value overrides `tag`.
   digest: ""
   # -- When true, only the content in `repository` is used as image reference
   useRepositoryAsSoleImageReference: false
-  pullPolicy: IfNotPresent
+  # pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- An optional list of references to secrets in the same namespace to use for pulling images.
 # @raw
@@ -56,7 +57,7 @@ server:
     # -- Trino supports multiple [authentication
     # types](https://trino.io/docs/current/security/authentication-types.html):
     # PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS.
-    authenticationType: ""
+    authenticationType: "PASSWORD"
     query:
       maxMemory: "4GB"
   exchangeManager: {}
@@ -322,9 +323,21 @@ catalogs:
 #    memory.max-data-per-node=128MB
 # ```
 
-additionalCatalogs: {}
+# additionalCatalogs: {}
 # additionalCatalogs -- Deprecated, use `catalogs` instead. Configure additional
 # [catalogs](https://trino.io/docs/current/installation/deployment.html#catalog-properties).
+
+additionalCatalogs:
+  delta: |-
+    connector.name=delta_lake
+    hive.metastore.uri=thrift://hive-metastore:9083
+    delta.register-table-procedure.enabled=true
+    hive.s3.endpoint=https://be3c9633b3747030f2a93e5c845ab269.r2.cloudflarestorage.com
+    hive.s3.aws-access-key=16f3bf04f81dfb9ae6a53082161f0061
+    hive.s3.aws-secret-key=bf312bb9df229659fd6c4f2d3491f9ec2500e5a424900796d5b41fa2bce4021e
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=true
+    delta.enable-non-concurrent-writes=true
 
 env: []
 # env -- additional environment variables added to every pod, specified as a list with explicit values
@@ -385,19 +398,21 @@ sidecarContainers: {}
 # -- [Pod security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) configuration.
 # To remove the default, set it to null (or `~`).
 securityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  runAsUser: 0
+  runAsGroup: 0
 
 # -- [Container security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) configuration.
 containerSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
   # -- Control whether a process can gain more privileges than its parent process.
-  allowPrivilegeEscalation: false
-  capabilities:
-    # -- A list of the Linux kernel capabilities that are dropped from every container. Valid values are listed in
-    # [the capabilities manual page](https://man7.org/linux/man-pages/man7/capabilities.7.html). Ensure # to remove
-    # the "CAP_" prefix which the kernel attaches to the names of permissions.
-    drop:
-      - ALL
+  # allowPrivilegeEscalation: false
+  # capabilities:
+  #   # -- A list of the Linux kernel capabilities that are dropped from every container. Valid values are listed in
+  #   # [the capabilities manual page](https://man7.org/linux/man-pages/man7/capabilities.7.html). Ensure # to remove
+  #   # the "CAP_" prefix which the kernel attaches to the names of permissions.
+  #   drop:
+  #     - ALL
 
 shareProcessNamespace:
   coordinator: false

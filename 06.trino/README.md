@@ -99,6 +99,106 @@ password-authenticator.properties: |
 ```bash
 helm upgrade --install trino ./trino -f ./trino/values.yaml
 ```
+
+**3.2 Config heml chart for trino use ranger**:
+
+- Build image trino with ranger plugin
+
+```bash
+#cd ./image/trino-with-ranger-plugin/
+
+docker buildx build -t bill/trinoplus:0.0.1 -f Dockerfile .
+docker push bill/trinoplus:0.0.1
+```
+
+- Deploy mount pod for coor and worker:
+
+```bash
+kubectl apply -f ./trino-with-ranger-plugin-conf/trino_coor_conf_volumn.yaml
+kubectl cp ./trino-with-ranger-plugin-conf/configcoordinator/. trino-coor-conf-mnt:/etc/trino/
+
+
+kubectl apply -f ./trino-with-ranger-plugin-conf/trino_worker_conf_volumn.yaml
+kubectl cp ./trino-with-ranger-plugin-conf/configworker/. trino-woker-conf-mnt:/etc/trino/
+```
+
+
+- Config volumn for template:
+
+```bash
+#deployment-coordinator.yaml
+
+spec:
+    temmplate:
+        spec:
+            volumes:
+                - name: config-volume
+                  persistentVolumeClaim:
+                    claimName: trino-co-pvc
+
+
+#deployment-worker.yaml
+spec:
+    temmplate:
+        spec:
+            volumes:
+                - name: config-volume
+                  persistentVolumeClaim:
+                    claimName: trino-wk-pvc
+```
+
+- Config trino version use 455 in values.yaml to use s3 file system
+
+```bash
+#values.yaml
+
+image:
+  repository: tyle0829/trinoplus
+  #--- 
+  tag: "0.0.1"
+  #--- 
+```
+- Config run with root user
+
+```bash
+#values.yaml
+
+securityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+containerSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+```
+
+
+- Additional config catalog delta with hive-metastore values.yaml
+
+
+```bash
+#values.yaml
+additionalCatalogs:
+  delta: |-
+    connector.name=delta_lake
+    hive.metastore.uri=thrift://hive-metastore:9083
+    delta.register-table-procedure.enabled=true
+    hive.s3.endpoint=https://aaaaa.r2.cloudflarestorage.com
+    hive.s3.aws-access-key=aaaaaaaaa
+    hive.s3.aws-secret-key=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=true
+    delta.enable-non-concurrent-writes=true
+```
+
+
+- Deploy trino:
+
+```bash
+helm upgrade --install trino ./trino-with-ranger-plugin -f ./trino-with-ranger-plugin/values.yaml
+```
+
+
 #### Pod
     
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_pod.png></a></p>

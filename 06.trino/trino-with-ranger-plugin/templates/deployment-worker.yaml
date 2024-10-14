@@ -49,8 +49,10 @@ spec:
       {{- end }}
       volumes:
         - name: config-volume
-          configMap:
-            name: {{ template "trino.worker" . }}
+          # configMap:
+          #   name: {{ template "trino.worker" . }}
+          persistentVolumeClaim:
+            claimName: trino-wk-pvc
         {{- if or .Values.catalogs .Values.additionalCatalogs }}
         - name: catalog-volume
           configMap:
