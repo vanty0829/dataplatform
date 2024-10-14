@@ -30,11 +30,6 @@ kubectl apply -f ./jupyter.yaml
 </br>
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_ui.png></a></p>
 
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/sark_app.png></a></p>
-
-**4. Start SparkSession on k8s**:
-</br>
-
 ```bash
 import os
 from pyspark.sql import SparkSession
@@ -56,3 +51,5 @@ spark = (
     .getOrCreate()
 )
 ```
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/spark_app.png></a></p>
