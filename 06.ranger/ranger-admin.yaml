@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ranger-admin
+  labels:
+    app: ranger-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ranger-admin
+  template:
+    metadata:
+      labels:
+        app: ranger-admin
+    spec:
+      hostname: ranger
+      containers:
+        - name: ranger-admin
+          image: bill/ranger-admin:0.0.1
+          ports:
+            - containerPort: 6080
+          # command: ["/root/ranger-admin/docker-entrypoint.sh"]
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ranger-admin
+spec:
+  type: NodePort
+  ports:
+    - port: 6080
+      targetPort: 6080
+  selector:
+    app: ranger-admin

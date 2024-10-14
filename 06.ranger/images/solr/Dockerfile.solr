@@ -1,0 +1,15 @@
+FROM solr:8.11.2
+
+USER root
+
+COPY elevate.xml /opt/solr/server/solr/configsets/ranger_audits/conf/
+RUN chmod 644 /opt/solr/server/solr/configsets/ranger_audits/conf/elevate.xml
+
+COPY managed-schema /opt/solr/server/solr/configsets/ranger_audits/conf/
+RUN chmod 644 /opt/solr/server/solr/configsets/ranger_audits/conf/managed-schema
+
+COPY solrconfig.xml /opt/solr/server/solr/configsets/ranger_audits/conf/
+RUN chmod 644 /opt/solr/server/solr/configsets/ranger_audits/conf/solrconfig.xml
+
+USER 8983
+ENTRYPOINT ["solr-precreate", "ranger_audits", "/opt/solr/server/solr/configsets/ranger_audits"]
