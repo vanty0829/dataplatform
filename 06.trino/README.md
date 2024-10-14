@@ -124,3 +124,18 @@ kubectl apply -f ./trino-ingress.yaml
 #### Cluster Overview
 
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_cluster.png></a></p>
+
+
+- Query data on Trino:
+
+#### Choose Trino connection in DBeaver tool:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_dbeaver_login.png></a></p>
+
+#### Input connection info:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_dbeaver_login2.png></a></p>
+
+#### Query data on delta table:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_query_delta_table.png></a></p>
