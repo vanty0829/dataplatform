@@ -21,7 +21,7 @@ image:
   # -- Repository location of the Trino image, typically `organization/imagename`
   repository: trinodb/trino
   # -- Image tag, defaults to the Trino release version specified as `appVersion` from Chart.yaml
-  tag: "455"
+  tag: ""
   # -- Optional digest value of the image specified as `sha256:abcd...`. A specified value overrides `tag`.
   digest: ""
   # -- When true, only the content in `repository` is used as image reference
@@ -56,7 +56,7 @@ server:
     # -- Trino supports multiple [authentication
     # types](https://trino.io/docs/current/security/authentication-types.html):
     # PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS.
-    authenticationType: "PASSWORD"
+    authenticationType: ""
     query:
       maxMemory: "4GB"
   exchangeManager: {}
@@ -254,7 +254,7 @@ additionalNodeProperties: []
 #  - node.id=${NODE_ID}
 # ```
 
-# additionalConfigProperties: []
+additionalConfigProperties: []
 # additionalConfigProperties -- [Additional config
 # properties](https://trino.io/docs/current/admin/properties.html).
 # @raw
@@ -263,12 +263,6 @@ additionalNodeProperties: []
 #  - internal-communication.shared-secret=random-value-999
 #  - http-server.process-forwarded=true
 # ```
-
-additionalConfigProperties:
-  - internal-communication.shared-secret=super-secret-communication-shared-secret # Shared secret to authenticate all communication between nodes of the cluster
-  - http-server.process-forwarded=true # Needed when Trino cluster is behind a load balancer or proxy server
-  - hide-inaccessible-columns=true
-
 
 additionalLogProperties: []
 # additionalLogProperties -- [Additional log

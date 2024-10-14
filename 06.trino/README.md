@@ -19,15 +19,81 @@ helm repo add trino https://trinodb.github.io/charts
 helm pull trino/trino --untar
 ```
 
-- Pod:
+**3.1 Config heml chart for trino not use ranger**:
 
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ldap_pod.png></a></p>
+- Config trino version use 455 in values.yaml to use s3 file system
 
-- Service:
+```bash
+#values.yaml
 
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ldap_svc.png></a></p>
+image:
+  #--- 
+  tag: "455"
+  #--- 
+```
 
 
-- LDAP management UI:
+- Config trino authen with PASSWORD
 
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ldap_ui.png></a></p>
+```bash
+#values.yaml
+
+server:
+  #--- 
+  config:
+    #---
+    authenticationType: "PASSWORD"
+    #---
+  #--- 
+```
+
+- Additional config values.yaml
+
+```bash
+#values.yaml
+
+additionalConfigProperties:
+  - internal-communication.shared-secret=super-secret-communication-shared-secret # Shared secret to authenticate all communication between nodes of the cluster
+  - http-server.process-forwarded=true # Needed when Trino cluster is behind a load balancer or proxy server
+  - hide-inaccessible-columns=true
+```
+
+- Config LDAP server for PASSWORD authen:
+
+```bash
+./templates/configmap-coordinator.yaml
+
+password-authenticator.properties: |
+    # password-authenticator.name=file
+    # file.password-file={{ .Values.server.config.path }}/auth/password.db
+    password-authenticator.name=ldap
+    ldap.url=ldap://openldap:389
+    ldap.allow-insecure=true
+    ldap.bind-dn=cn=admin,dc=ranger,dc=local
+    ldap.user-base-dn=dc=ranger,dc=local
+    ldap.bind-password=admin
+    # ldap.group-auth-pattern=(&(objectClass=inetOrgPerson)(uid=${USER})(memberof=CN=AuthorizedGroup,OU=Asia,DC=corp,DC=example,DC=com))
+    ldap.group-auth-pattern=(&(objectClass=inetOrgPerson)(uid=${USER}))
+```
+
+
+- Deploy trino:
+
+```bash
+helm upgrade --install trino ./trino -f ./trino/values.yaml
+```
+
++ Pod
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_pod.png></a></p>
+
++ Service
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_svc.png></a></p>
+
+
+
+- Deploy ingress for trino to have tls to auth with password:
+
+```bash
+kubectl apply -f ./trino-ingress.yaml
+```
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_ingress.png></a></p>

@@ -127,16 +127,8 @@ data:
 
   {{- if contains "PASSWORD" .Values.server.config.authenticationType }}{{- if not (index .Values.coordinator.additionalConfigFiles "password-authenticator.properties") }}
   password-authenticator.properties: |
-    # password-authenticator.name=file
-    # file.password-file={{ .Values.server.config.path }}/auth/password.db
-    password-authenticator.name=ldap
-    ldap.url=ldap://openldap:389
-    ldap.allow-insecure=true
-    ldap.bind-dn=cn=admin,dc=ranger,dc=local
-    ldap.user-base-dn=dc=ranger,dc=local
-    ldap.bind-password=admin
-    # ldap.group-auth-pattern=(&(objectClass=inetOrgPerson)(uid=${USER})(memberof=CN=AuthorizedGroup,OU=Asia,DC=corp,DC=example,DC=com))
-    ldap.group-auth-pattern=(&(objectClass=inetOrgPerson)(uid=${USER}))
+    password-authenticator.name=file
+    file.password-file={{ .Values.server.config.path }}/auth/password.db
   {{- end }}{{- end }}
 
   {{- if .Values.auth.groups }}{{- if not (index .Values.coordinator.additionalConfigFiles "group-provider.properties") }}
