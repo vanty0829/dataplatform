@@ -328,9 +328,21 @@ catalogs:
 #    memory.max-data-per-node=128MB
 # ```
 
-additionalCatalogs: {}
+# additionalCatalogs: {}
 # additionalCatalogs -- Deprecated, use `catalogs` instead. Configure additional
 # [catalogs](https://trino.io/docs/current/installation/deployment.html#catalog-properties).
+
+additionalCatalogs:
+  delta: |-
+    connector.name=delta_lake
+    hive.metastore.uri=thrift://hive-metastore:9083
+    delta.register-table-procedure.enabled=true
+    hive.s3.endpoint=https://aaaaa.r2.cloudflarestorage.com
+    hive.s3.aws-access-key=aaaaaaaaa
+    hive.s3.aws-secret-key=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=true
+    delta.enable-non-concurrent-writes=true
 
 env: []
 # env -- additional environment variables added to every pod, specified as a list with explicit values

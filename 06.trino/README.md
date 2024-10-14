@@ -58,6 +58,24 @@ additionalConfigProperties:
   - hide-inaccessible-columns=true
 ```
 
+- Additional config catalog delta with hive-metastore values.yaml
+
+
+```bash
+#values.yaml
+additionalCatalogs:
+  delta: |-
+    connector.name=delta_lake
+    hive.metastore.uri=thrift://hive-metastore:9083
+    delta.register-table-procedure.enabled=true
+    hive.s3.endpoint=https://aaaaa.r2.cloudflarestorage.com
+    hive.s3.aws-access-key=aaaaaaaaa
+    hive.s3.aws-secret-key=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=true
+    delta.enable-non-concurrent-writes=true
+```
+
 - Config LDAP server for PASSWORD authen:
 
 ```bash
@@ -76,17 +94,16 @@ password-authenticator.properties: |
     ldap.group-auth-pattern=(&(objectClass=inetOrgPerson)(uid=${USER}))
 ```
 
-
 - Deploy trino:
 
 ```bash
 helm upgrade --install trino ./trino -f ./trino/values.yaml
 ```
-  - Pod
+#### Pod
     
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_pod.png></a></p>
 
-  - Service
+#### Service
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_svc.png></a></p>
 
 
@@ -97,3 +114,13 @@ helm upgrade --install trino ./trino -f ./trino/values.yaml
 kubectl apply -f ./trino-ingress.yaml
 ```
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_ingress.png></a></p>
+
+- Trino Cluster Overview:
+
+#### Login
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_ui.png></a></p>
+
+#### Cluster Overview
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_cluster.png></a></p>
