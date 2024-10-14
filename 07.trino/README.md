@@ -147,7 +147,7 @@ spec:
                     claimName: trino-wk-pvc
 ```
 
-- Config trino version use 455 in values.yaml to use s3 file system
+- Config trino version use your image in values.yaml:
 
 ```bash
 #values.yaml
