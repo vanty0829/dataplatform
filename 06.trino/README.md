@@ -1,4 +1,4 @@
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/start.png></a></p>
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/star.png></a></p>
 
 <p align="center">
     <b>Trino is a fast distributed SQL query engine for big data analytics.</b>
