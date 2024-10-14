@@ -17,7 +17,7 @@ spec:
          serviceAccountName: spark-driver
          containers:
             - name: jupiter-spark-container
-              image: bill/jupyter:0.0.4 #change with your image
+              image: tyle0829/jupyter:0.0.4 #change with your image
               imagePullPolicy: Always
               ports:
               - containerPort: 8888
@@ -39,13 +39,13 @@ spec:
                 limits:
                   memory: "2Gi"  # Adjust the maximum memory limit
                   cpu: "1"       # Adjust the maximum CPU limit
-              volumeMounts:
-              - name: jupyter-storage
-                mountPath: /home/bill  # Change this to the path where you want to mount the volume
-         volumes:
-            - name: jupyter-storage
-              persistentVolumeClaim:
-               claimName: pvcju
+        #       volumeMounts:
+        #       - name: jupyter-storage
+        #         mountPath: /home/bill  # Change this to the path where you want to mount the volume
+        #  volumes:
+        #     - name: jupyter-storage
+        #       persistentVolumeClaim:
+        #        claimName: pvcju
 ---
 apiVersion: v1
 kind: Service
@@ -59,7 +59,7 @@ spec:
    ports:
       - port: 8888
         targetPort: 8888
-        nodePort: 30001
+        # nodePort: 30001
 ---
 apiVersion: v1
 kind: Service
