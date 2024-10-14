@@ -28,7 +28,6 @@ kubectl apply -f ./jupyter.yaml
 
 - Start SparkSession
 </br>
-<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_ui.png></a></p>
 
 ```bash
 import os
@@ -52,4 +51,5 @@ spark = (
 )
 ```
 
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/jupyter_ui.png></a></p>
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/spark_app.png></a></p>
