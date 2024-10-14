@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ranger-usersync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ranger-usersync
+  template:
+    metadata:
+      labels:
+        app: ranger-usersync
+    spec:
+      containers:
+        - name: ranger-usersync
+          image: bill/ranger-usersync:0.0.1
+          command: ["./bootstrap.sh"]
+          imagePullPolicy: Always

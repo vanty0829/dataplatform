@@ -60,3 +60,34 @@ kubectl apply -f ranger-admin.yaml
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ranger_login.png></a></p>
 
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ranger_ui.png></a></p>
+
+**4. Build Ranger UserSync image and deploy**:
+</br>
+
+- Build Ranger UserSync image:
+
+```bash
+#cd ./images/ranger-usersync
+
+docker buildx build -t bill/ranger-usersync:0.0.1 -f Dockerfile.usersync .
+docker push bill/ranger-usersync:0.0.1
+```
+
+- Deploy Ranger - Build Ranger UserSync image:
+:
+
+```bash
+kubectl apply -f ranger-usersync.yaml
+```
+
+
+**5. Config access control for Trino-user on  Ranger**:
+</br>
+
+- Allow info-schema and jdbc:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ranger_allow_schema.png></a></p>
+
+- Grant permssion for user:
+
+<p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/ranger_grant_permistion.png></a></p>
