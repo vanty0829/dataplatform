@@ -19,7 +19,7 @@ image:
   # -- Image registry, defaults to empty, which results in DockerHub usage
   registry: ""
   # -- Repository location of the Trino image, typically `organization/imagename`
-  repository: tyle0829/trinoplus
+  repository: bill/trinoplus
   # -- Image tag, defaults to the Trino release version specified as `appVersion` from Chart.yaml
   tag: "0.0.1"
   # -- Optional digest value of the image specified as `sha256:abcd...`. A specified value overrides `tag`.
@@ -332,9 +332,9 @@ additionalCatalogs:
     connector.name=delta_lake
     hive.metastore.uri=thrift://hive-metastore:9083
     delta.register-table-procedure.enabled=true
-    hive.s3.endpoint=https://be3c9633b3747030f2a93e5c845ab269.r2.cloudflarestorage.com
-    hive.s3.aws-access-key=16f3bf04f81dfb9ae6a53082161f0061
-    hive.s3.aws-secret-key=bf312bb9df229659fd6c4f2d3491f9ec2500e5a424900796d5b41fa2bce4021e
+    hive.s3.endpoint=https://aaaaa.r2.cloudflarestorage.com
+    hive.s3.aws-access-key=aaaaaaaaa
+    hive.s3.aws-secret-key=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     hive.s3.path-style-access=true
     hive.s3.ssl.enabled=true
     delta.enable-non-concurrent-writes=true

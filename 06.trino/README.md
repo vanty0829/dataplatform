@@ -153,7 +153,7 @@ spec:
 #values.yaml
 
 image:
-  repository: tyle0829/trinoplus
+  repository: bill/trinoplus
   #--- 
   tag: "0.0.1"
   #--- 
