@@ -82,11 +82,11 @@ password-authenticator.properties: |
 ```bash
 helm upgrade --install trino ./trino -f ./trino/values.yaml
 ```
-
-    + Pod
+  - Pod
+    
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_pod.png></a></p>
 
-    + Service
+  - Service
 <p align="center"><img src=https://github.com/vanty0829/dataplatform/blob/master/99.images/trino_svc.png></a></p>
 
 
