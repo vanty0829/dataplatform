@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openldap
+  template:
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      containers:
+        - name: openldap
+          image: tyle0829/ldap:0.0.1
+          ports:
+            - containerPort: 389
+            - containerPort: 636
+          env:
+            - name: LDAP_ORGANISATION
+              value: "rangerlocal"
+            - name: LDAP_DOMAIN
+              value: "ranger.local"
+            - name: LDAP_ADMIN_USERNAME
+              value: "admin"
+            - name: LDAP_ADMIN_PASSWORD
+              value: "admin"
+            - name: LDAP_CONFIG_PASSWORD
+              value: "config_pass"
+            - name: LDAP_REMOVE_CONFIG_AFTER_SETUP
+              value: "false"
+            - name: LDAP_SEED_INTERNAL_LDIF_PATH
+              value: "/ldifs"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: openldap
+# spec:
+#   type: NodePort
+#   ports:
+#     - port: 389
+#       targetPort: 389
+#       name: ldap  # Change this if you want a specific node port
+#     - port: 636
+#       targetPort: 636
+#       name: ldaps
+#   selector:
+#     app: openldap
