@@ -31,6 +31,11 @@ RUN    wget -P /opt/spark/jars/ https://repo1.maven.org/maven2/io/delta/delta-co
     && wget -P /opt/spark/jars/ https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.262/aws-java-sdk-bundle-1.12.262.jar \
     && wget -P /opt/spark/jars/ https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.0/postgresql-42.7.0.jar
 
+    # kafka-clients-2.5.0.jar
+    # spark-sql-kafka-0-10_2.12-3.2.1.jar
+    # spark-streaming-kafka-0-10-assembly_2.12-3.2.1.jar
+    # spark-token-provider-kafka-0-10_2.12-3.1.2.jar
+
 # COPY ./jars/* /opt/spark/jars/
 
 USER spark
