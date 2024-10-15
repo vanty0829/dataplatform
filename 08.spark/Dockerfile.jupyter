@@ -5,15 +5,15 @@ USER root
 
 
 # install lib to connect postgresql
-# RUN sudo apt -y update \
-#     && sudo apt -y install postgresql postgresql-contrib \
-#     && sudo apt-get install -y libpq-dev
+RUN sudo apt -y update \
+    && sudo apt -y install postgresql postgresql-contrib \
+    && sudo apt-get install -y libpq-dev
 
 
-# COPY requirements.txt ./
-# RUN pip install --upgrade pip \
-#     && pip install --no-cache-dir -r requirements.txt \
-#     && apt-get clean && rm requirements.txt
+COPY requirements.txt ./
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get clean && rm requirements.txt
     
 WORKDIR /
 
@@ -28,13 +28,24 @@ COPY ./spark-config/hive-site.xml /usr/local/spark/conf/
 
 # COPY ./jars/* /usr/local/spark/jars/
 
-CMD ["start-notebook.sh", "--NotebookApp.token=tylebic", "--NotebookApp.password=tylebic"]
+RUN    wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/io/delta/delta-core_2.12/2.4.0/delta-core_2.12-2.4.0.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/io/delta/delta-storage/3.2.0/delta-storage-3.2.0.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/io/delta/delta-spark_2.12/3.2.0/delta-spark_2.12-3.2.0.jar \    
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/net/java/dev/jets3t/jets3t/0.9.4/jets3t-0.9.4.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client/3.3.4/hadoop-client-3.3.4.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-common/3.3.4/hadoop-common-3.3.4.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.262/aws-java-sdk-bundle-1.12.262.jar \
+    && wget -P /usr/local/spark/jars/ https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.0/postgresql-42.7.0.jar
 
+# CMD ["start-notebook.sh", "--NotebookApp.token=${NB_PW}", "--NotebookApp.password=${NB_PW}"]
 
-RUN mkdir /home/tyle \
-    && chmod -R 777 /home/tyle
+CMD sh -c "start-notebook.sh --NotebookApp.token=${NB_PW} --NotebookApp.password=${NB_PW}"
+
+# -p create if not exist
+RUN mkdir -p /home/${NB_USER} \
+    && chmod -R 777 /home/${NB_USER}
     
-WORKDIR /home/tyle
+WORKDIR /home/${NB_USER}
 # USER $NB_UID
 # USER $NB_USER
-# USER tyle

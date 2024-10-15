@@ -17,7 +17,7 @@ spec:
          serviceAccountName: spark-driver
          containers:
             - name: jupiter-spark-container
-              image: bill/jupyter:0.0.4 #change with your image
+              image: bill/jupyter:0.0.2 #change with your image
               imagePullPolicy: Always
               ports:
               - containerPort: 8888
@@ -27,7 +27,9 @@ spec:
               - name: GRANT_SUDO
                 value: "yes"
               - name: NB_USER
-                value: "tyle"
+                value: "bill"
+              - name: NB_PW
+                value: "123"
               - name: CHOWN_HOME
                 value: "yes"
               - name: CHOWN_HOME_OPTS
