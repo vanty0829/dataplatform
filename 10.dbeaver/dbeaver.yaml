@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudbeaver-ee
+  labels:
+    app: cloudbeaver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudbeaver
+  template:
+    metadata:
+      labels:
+        app: cloudbeaver
+    spec:
+      containers:
+        - name: cloudbeaver-ee
+          image: dbeaver/cloudbeaver-ee:latest
+          ports:
+            - containerPort: 8978  # CloudBeaver default port
+      #     volumeMounts:
+      #       - name: cloudbeaver-workspace
+      #         mountPath: /opt/cloudbeaver/workspace  # Mount the workspace
+      # volumes:
+      #   - name: cloudbeaver-workspace
+      #     persistentVolumeClaim:
+      #       claimName: cloudbeaver-pvc  # Replace with your PVC name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudbeaver-ee
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8978
+      protocol: TCP
+  selector:
+    app: cloudbeaver
